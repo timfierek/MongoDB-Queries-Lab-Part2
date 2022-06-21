@@ -1,0 +1,76 @@
+1.)
+db.people.insertOne({
+	"first_name": "Tim",
+	"last_name": "Hanks",
+	"email": "thanks@gmail.com",
+	"gender": "Female",
+	"age": 44,
+	"state": "Michigan",
+	"children": []
+})
+
+2.)
+db.people.insertOne({
+	"first_name": "Marissa",
+	"last_name": "Chungus",
+	"email": "bchungus@gmail.com",
+	"gender": "Female",
+	"age": 19,
+	"state": "Arizona",
+	"children": [{"name":"dale", "age": 7},{"name": "chip", "age": 3}]
+})
+
+3.)
+db.people.updateOne({first_name: "Clarence"}, {$set: {state: "South Dakota"}})
+
+4.)
+db.people.updateOne({first_name: "Rebecca", last_name: "Hayes"}, {$unset: {email: ""}})
+
+5.)
+db.people.updateMany({state: "Missouri"}, {$inc: {age: 1}})
+
+6.)
+db.people.replaceOne({first_name: "Jerry", last_name: "Baker"}, 
+{
+	"first_name": "Jerry", 
+	"last_name": "Baker-Mendez", 
+	"email": "jerry@classic.ly", 
+	"gender":"Male", 
+	"age": 28, 
+	"state": "Vermont", 
+	"children": [{"name": "Alan", "age": 18}, {"name": "Jenny", "age": 3}] 
+})
+
+7.)
+db.people.deleteOne({first_name: "Wanda", last_name: "Bowman"})
+
+8.)
+db.people.deleteMany({email: null})
+
+9.)
+db.submissions.insertMany([
+	{"title": "The River Bend", "upvotes": 10, "downvotes": 2, "artist": ObjectId("62ab6ae9298a069eebcddef1")},
+	{"title": "Nine Lives", "upvotes": 7, "downvotes": 0, "artist": ObjectId("62ab6ae9298a069eebcddf1f")},
+	{"title": "Star Bright", "upvotes": 19, "downvotes": 3, "artist": ObjectId("62ab6ae9298a069eebcddfa2")},
+	{"title": "Why Like This?", "upvotes": 1, "downvotes": 5, "artist": ObjectId("62ab6ae9298a069eebcddf28")},
+	{"title": "Non Sequitur", "upvotes": 11, "downvotes": 1, "artist": ObjectId("62ab6ae9298a069eebcddeef")}
+])
+
+10.)
+db.submissions.updateOne({title: "The River Bend"}, {$inc: {upvotes: 2}})
+
+11.)
+db.submissions.updateMany({"upvotes": {$gte: 10}}, {$set: {"round2" : true}})
+
+12.)
+db.people.updateOne({first_name: "Helen", last_name: "Clark"}, {$push: {children: {"name": "Melanie", "age": 0}}})
+
+13.)
+db.people.updateOne(
+	{first_name: "Joan", last_name: "Bishop"},
+	{$set: {"children.3.name": "Cat"}},
+	{$inc: {"children.3.age": 1}}
+)
+
+14.)
+db.submissions.find({$expr:{ $gt: ["$downvotes" , "$upvotes"]}})
